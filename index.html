@@ -42,30 +42,12 @@
         .file-item:last-child {
             border-bottom: none;
         }
-        .preview-container {
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            border: 2px dashed #dee2e6;
-        }
-        .preview-image {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 5px;
-        }
         .btn-primary {
             background: linear-gradient(135deg, #6c5ce7 0%, #3498db 100%);
             border: none;
         }
         .btn-primary:hover {
             background: linear-gradient(135deg, #5d4ae0 0%, #2980b9 100%);
-        }
-        .btn-danger {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            border: none;
         }
         .btn-success {
             background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
@@ -84,50 +66,11 @@
             background-color: rgba(108, 92, 231, 0.05);
             transition: all 0.3s;
             margin-bottom: 15px;
+            cursor: pointer;
         }
         .drop-zone.drag-over {
             background-color: rgba(108, 92, 231, 0.2);
             border-color: #3498db;
-        }
-        .sprite-preview {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            padding: 2px;
-            background: white;
-        }
-        .sprite-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .sprite-card {
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            background: white;
-            transition: all 0.2s;
-            position: relative;
-        }
-        .sprite-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .sprite-card.selected {
-            border: 2px solid #6c5ce7;
-            background-color: #f0f5ff;
-        }
-        .sprites-container {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 10px;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            background-color: #f8f9fa;
         }
         .status-bar {
             background-color: #e9ecef;
@@ -150,30 +93,197 @@
             justify-content: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .right-panel {
+        
+        /* Results View Styles */
+        #results-view {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .results-header {
+            background: linear-gradient(135deg, #6c5ce7 0%, #3498db 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-box {
             position: sticky;
             top: 20px;
-            height: calc(100vh - 40px);
-            overflow-y: auto;
-        }
-        .sticky-preview {
-            position: sticky;
-            top: 0;
             z-index: 100;
             background: white;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
         }
+        
+        .sprite-list-container {
+            max-height: calc(100vh - 300px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .sprite-list-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sprite-list-item:hover {
+            border-color: #6c5ce7;
+            background-color: #f8f9ff;
+            transform: translateX(5px);
+        }
+        
+        .sprite-list-item.active {
+            border-color: #6c5ce7;
+            background-color: #f0f5ff;
+            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.2);
+        }
+        
+        .sprite-list-item.hidden {
+            display: none;
+        }
+        
+        .sprite-list-thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 4px;
+            background: white;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .sprite-list-info {
+            flex-grow: 1;
+            min-width: 0;
+        }
+        
+        .sprite-list-name {
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .sprite-list-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        .results-preview-container {
+            position: sticky;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-height: 450px;
+            position: relative;
+        }
+        
+        .results-preview-image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 450px;
+            border: 2px dashed #dee2e6;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+        }
+        
+        .results-preview-image-container.grabbing {
+            cursor: grabbing;
+        }
+        
+        .results-preview-image {
+            max-width: 400px;
+            max-height: 400px;
+            object-fit: contain;
+            transition: transform 0.1s ease-out;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            z-index: 10;
+        }
+        
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            color: #6c5ce7;
+        }
+        
+        .zoom-btn:hover {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .zoom-level {
+            width: 60px;
+            height: 36px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        .results-preview-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .no-results-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+        
         .selection-controls {
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
-        }
-        .sprite-checkbox {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            z-index: 10;
         }
     </style>
 </head>
@@ -191,6 +301,7 @@
                         <li>Add your <strong>MonoBehaviour JSON files</strong> (from Unity sprite atlases)</li>
                         <li>Add the corresponding <strong>texture files</strong> (PNG, JPG, etc.)</li>
                         <li>Click <strong>Process Atlas</strong> to extract sprites</li>
+                        <li>Use the search box to filter sprites by name</li>
                         <li>Select sprites to download and click <strong>Download Selected</strong></li>
                         <li>Use <strong>Select All</strong> or <strong>Deselect All</strong> to manage selections</li>
                     </ol>
@@ -199,15 +310,17 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-                <div>
-                    <!-- Add this button in the header section -->
-                    <a href="../Sprite-Assembly/Sprite Compiler/index.html" class="btn btn-outline-info">
-                        <i class="bi bi-box-arrow-right"></i> Go to Sprite Compiler
-                    </a>
-                </div>
-            <div class="col-lg-6">
+    <!-- Main Upload/Processing View -->
+    <div class="container" id="main-view">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 mb-3">
+                <a href="../Sprite-Assembly/Sprite Compiler/index.html" class="btn btn-outline-info">
+                    <i class="fas fa-box-arrow-right"></i> Go to Sprite Compiler
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
@@ -237,7 +350,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="col-lg-5">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
@@ -267,7 +382,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-cogs feature-icon"></i> Processing Options
@@ -284,66 +403,105 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="col-lg-6">
-                <div class="right-panel">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center sticky-preview">
-                            <div>
-                                <i class="fas fa-expand feature-icon"></i> Sprite Preview
+    <!-- Results View -->
+    <div class="container" id="results-view">
+        <div class="results-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1"><i class="fas fa-check-circle"></i> Extraction Complete!</h2>
+                    <p class="mb-0" id="results-summary">0 sprites extracted</p>
+                </div>
+                <button class="btn btn-light" id="back-to-upload-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Upload
+                </button>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Left Panel: Sprite List -->
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-list feature-icon"></i> Extracted Sprites
+                    </div>
+                    <div class="card-body">
+                        <!-- Search Box -->
+                        <div class="search-box">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control" id="sprite-search-input" 
+                                    placeholder="Search sprites by name...">
+                                <button class="btn btn-outline-secondary" id="clear-search-btn" type="button">
+                                    <i class="fas fa-times"></i>
+                                </button>
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary" id="clear-preview-btn" disabled>
-                                <i class="fas fa-times"></i> Clear Preview
+                            <div class="mt-2 small text-muted" id="search-results-count"></div>
+                        </div>
+                        
+                        <!-- Selection Controls -->
+                        <div class="selection-controls mb-3">
+                            <button class="btn btn-sm btn-outline-primary" id="results-select-all-btn">
+                                <i class="fas fa-check-square"></i> Select All
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary" id="results-deselect-all-btn">
+                                <i class="fas fa-square"></i> Deselect All
+                            </button>
+                            <button class="btn btn-sm btn-success" id="results-download-selected-btn" disabled>
+                                <i class="fas fa-download"></i> Download (<span id="selected-count">0</span>)
                             </button>
                         </div>
-                        <div class="card-body">
-                            <div class="preview-container" id="sprite-preview-container">
-                                <div id="sprite-preview-placeholder" class="text-muted text-center p-3">
-                                    <i class="fas fa-magnifying-glass fa-3x mb-3"></i>
-                                    <p>Select a sprite to preview</p>
-                                </div>
-                                <img id="sprite-preview-image" class="preview-image d-none">
-                            </div>
-                            <div id="sprite-info" class="mt-3 text-center d-none">
-                                <h5 id="sprite-name"></h5>
-                                <p id="sprite-dimensions" class="text-muted"></p>
-                                <a id="sprite-download-link" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-download"></i> Download This Sprite
-                                </a>
-                            </div>
+                        
+                        <!-- Sprite List -->
+                        <div class="sprite-list-container" id="sprite-list-container">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                        
+                        <div class="no-results-message d-none" id="no-search-results">
+                            <i class="fas fa-search fa-2x mb-2"></i>
+                            <p>No sprites match your search</p>
                         </div>
                     </div>
-
-                    <div class="card mt-4">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-cubes feature-icon"></i> Extracted Sprites
+                </div>
+            </div>
+            
+            <!-- Right Panel: Preview -->
+            <div class="col-lg-7">
+                <div class="results-preview-container">
+                    <div class="results-preview-image-container" id="results-preview-image-container">
+                        <div class="zoom-controls" id="zoom-controls" style="display: none;">
+                            <button class="zoom-btn" id="zoom-in-btn" title="Zoom In">+</button>
+                            <div class="zoom-level" id="zoom-level">100%</div>
+                            <button class="zoom-btn" id="zoom-out-btn" title="Zoom Out">−</button>
+                            <button class="zoom-btn" id="zoom-reset-btn" title="Reset">⟲</button>
+                        </div>
+                        <div class="text-muted text-center" id="results-preview-placeholder">
+                            <i class="fas fa-mouse-pointer fa-3x mb-3"></i>
+                            <p>Click on a sprite to preview it here</p>
+                        </div>
+                        <img id="results-preview-image" class="results-preview-image d-none">
+                    </div>
+                    
+                    <div class="results-preview-info d-none" id="results-preview-info">
+                        <h4 id="results-sprite-name" class="mb-2"></h4>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <small class="text-muted">Dimensions</small>
+                                <div id="results-sprite-dimensions"></div>
                             </div>
-                            <div>
-                                <button class="btn btn-sm btn-outline-secondary" id="clear-sprites-btn" disabled>
-                                    <i class="fas fa-trash"></i> Clear All
-                                </button>
+                            <div class="col-6">
+                                <small class="text-muted">Source</small>
+                                <div id="results-sprite-source" class="text-truncate" style="font-size: 0.9rem;"></div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="selection-controls">
-                                <button class="btn btn-sm btn-outline-primary" id="select-all-btn" disabled>
-                                    <i class="fas fa-check-square"></i> Select All
-                                </button>
-                                <button class="btn btn-sm btn-outline-primary" id="deselect-all-btn" disabled>
-                                    <i class="fas fa-square"></i> Deselect All
-                                </button>
-                                <button class="btn btn-sm btn-success" id="download-selected-btn" disabled>
-                                    <i class="fas fa-download"></i> Download Selected
-                                </button>
-                            </div>
-                            <div class="sprites-container" id="sprites-container">
-                                <div class="text-muted text-center py-4">
-                                    <i class="fas fa-cubes fa-3x mb-3"></i>
-                                    <p>Process an atlas to see extracted sprites here</p>
-                                    <small class="text-muted">Click on any sprite to preview it</small>
-                                </div>
-                            </div>
+                        <div class="d-grid gap-2">
+                            <a id="results-sprite-download-link" class="btn btn-primary">
+                                <i class="fas fa-download"></i> Download This Sprite
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -369,7 +527,7 @@
             selectedSprites: new Set()
         };
 
-        // DOM elements
+        // DOM elements - Main View
         const jsonFileInput = document.getElementById('json-file-input');
         const textureFileInput = document.getElementById('texture-file-input');
         const jsonFileList = document.getElementById('json-file-list');
@@ -377,21 +535,45 @@
         const clearJsonBtn = document.getElementById('clear-json-btn');
         const clearTextureBtn = document.getElementById('clear-texture-btn');
         const processBtn = document.getElementById('process-btn');
-        const spritesContainer = document.getElementById('sprites-container');
-        const spritePreviewImage = document.getElementById('sprite-preview-image');
-        const spritePreviewPlaceholder = document.getElementById('sprite-preview-placeholder');
-        const spriteInfo = document.getElementById('sprite-info');
-        const spriteName = document.getElementById('sprite-name');
-        const spriteDimensions = document.getElementById('sprite-dimensions');
-        const spriteDownloadLink = document.getElementById('sprite-download-link');
-        const clearPreviewBtn = document.getElementById('clear-preview-btn');
         const jsonDropZone = document.getElementById('json-drop-zone');
         const textureDropZone = document.getElementById('texture-drop-zone');
-        const clearSpritesBtn = document.getElementById('clear-sprites-btn');
         const statusMessage = document.getElementById('status-message');
-        const selectAllBtn = document.getElementById('select-all-btn');
-        const deselectAllBtn = document.getElementById('deselect-all-btn');
-        const downloadSelectedBtn = document.getElementById('download-selected-btn');
+        
+        // DOM elements - Results View
+        const mainView = document.getElementById('main-view');
+        const resultsView = document.getElementById('results-view');
+        const backToUploadBtn = document.getElementById('back-to-upload-btn');
+        const resultsSummary = document.getElementById('results-summary');
+        const spriteListContainer = document.getElementById('sprite-list-container');
+        const spriteSearchInput = document.getElementById('sprite-search-input');
+        const clearSearchBtn = document.getElementById('clear-search-btn');
+        const searchResultsCount = document.getElementById('search-results-count');
+        const noSearchResults = document.getElementById('no-search-results');
+        const resultsPreviewImage = document.getElementById('results-preview-image');
+        const resultsPreviewPlaceholder = document.getElementById('results-preview-placeholder');
+        const resultsPreviewInfo = document.getElementById('results-preview-info');
+        const resultsSpriteName = document.getElementById('results-sprite-name');
+        const resultsSpriteDimensions = document.getElementById('results-sprite-dimensions');
+        const resultsSpriteSource = document.getElementById('results-sprite-source');
+        const resultsSpriteDownloadLink = document.getElementById('results-sprite-download-link');
+        const resultsSelectAllBtn = document.getElementById('results-select-all-btn');
+        const resultsDeselectAllBtn = document.getElementById('results-deselect-all-btn');
+        const resultsDownloadSelectedBtn = document.getElementById('results-download-selected-btn');
+        const selectedCountSpan = document.getElementById('selected-count');
+        
+        // Zoom and pan controls
+        const zoomControls = document.getElementById('zoom-controls');
+        const zoomInBtn = document.getElementById('zoom-in-btn');
+        const zoomOutBtn = document.getElementById('zoom-out-btn');
+        const zoomResetBtn = document.getElementById('zoom-reset-btn');
+        const zoomLevelDisplay = document.getElementById('zoom-level');
+        
+        let imageZoom = 1;
+        let imagePanX = 0;
+        let imagePanY = 0;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
 
         // Initialize event listeners
         function initEventListeners() {
@@ -400,11 +582,29 @@
             clearJsonBtn.addEventListener('click', clearAllJsonFiles);
             clearTextureBtn.addEventListener('click', clearAllTextureFiles);
             processBtn.addEventListener('click', processAtlas);
-            clearPreviewBtn.addEventListener('click', clearSpritePreview);
-            clearSpritesBtn.addEventListener('click', clearSprites);
-            selectAllBtn.addEventListener('click', selectAllSprites);
-            deselectAllBtn.addEventListener('click', deselectAllSprites);
-            downloadSelectedBtn.addEventListener('click', downloadSelectedSprites);
+            
+            // Results view listeners
+            backToUploadBtn.addEventListener('click', showMainView);
+            spriteSearchInput.addEventListener('input', filterSprites);
+            clearSearchBtn.addEventListener('click', clearSearch);
+            resultsSelectAllBtn.addEventListener('click', selectAllSpritesInResults);
+            resultsDeselectAllBtn.addEventListener('click', deselectAllSpritesInResults);
+            resultsDownloadSelectedBtn.addEventListener('click', downloadSelectedSprites);
+            
+            // Zoom and pan controls
+            zoomInBtn.addEventListener('click', zoomIn);
+            zoomOutBtn.addEventListener('click', zoomOut);
+            zoomResetBtn.addEventListener('click', resetZoom);
+            
+            // Mouse wheel zoom
+            const previewContainer = document.getElementById('results-preview-image-container');
+            previewContainer.addEventListener('wheel', handleWheel, { passive: false });
+            
+            // Pan controls
+            previewContainer.addEventListener('mousedown', startDrag);
+            previewContainer.addEventListener('mousemove', drag);
+            previewContainer.addEventListener('mouseup', endDrag);
+            previewContainer.addEventListener('mouseleave', endDrag);
             
             // Set up drag and drop
             setupDragAndDrop(jsonDropZone, handleJsonFilesAdded);
@@ -439,14 +639,12 @@
 
         // Update drop zone visibility
         function updateDropZoneVisibility() {
-            // JSON drop zone
             if (appState.jsonFiles.length > 0) {
                 jsonDropZone.style.display = 'none';
             } else {
                 jsonDropZone.style.display = 'block';
             }
             
-            // Texture drop zone
             if (appState.textureFiles.length > 0) {
                 textureDropZone.style.display = 'none';
             } else {
@@ -466,7 +664,7 @@
             updateJsonFileList();
             updateProcessButtonState();
             updateDropZoneVisibility();
-            event.target.value = ''; // Reset input
+            event.target.value = '';
         }
 
         // Handle texture files added
@@ -481,7 +679,7 @@
             updateTextureFileList();
             updateProcessButtonState();
             updateDropZoneVisibility();
-            event.target.value = ''; // Reset input
+            event.target.value = '';
         }
 
         // Update JSON file list UI
@@ -580,166 +778,10 @@
             statusMessage.textContent = message;
         }
 
-        // Display extracted sprites
-        function displayExtractedSprites() {
-            if (appState.extractedSprites.length === 0) {
-                spritesContainer.innerHTML = `
-                    <div class="text-muted text-center py-4">
-                        <i class="fas fa-cubes fa-3x mb-3"></i>
-                        <p>Process an atlas to see extracted sprites here</p>
-                        <small class="text-muted">Click on any sprite to preview it</small>
-                    </div>
-                `;
-                clearSpritesBtn.disabled = true;
-                selectAllBtn.disabled = true;
-                deselectAllBtn.disabled = true;
-                downloadSelectedBtn.disabled = true;
-                return;
-            }
-            
-            let html = `
-                <div class="sprite-grid">
-            `;
-            
-            appState.extractedSprites.forEach((sprite, index) => {
-                const isSelected = appState.selectedSprites.has(index);
-                html += `
-                    <div class="sprite-card ${isSelected ? 'selected' : ''}" onclick="previewSprite(${index})">
-                        <input type="checkbox" class="sprite-checkbox" ${isSelected ? 'checked' : ''} 
-                            onchange="toggleSpriteSelection(${index}, this.checked)">
-                        <img src="${sprite.data}" class="sprite-preview mb-2">
-                        <div class="small text-truncate" title="${sprite.name}">${sprite.name}</div>
-                        <small class="text-muted">${sprite.width}x${sprite.height}</small>
-                    </div>
-                `;
-            });
-            
-            html += `</div>`;
-            spritesContainer.innerHTML = html;
-            clearSpritesBtn.disabled = false;
-            selectAllBtn.disabled = false;
-            deselectAllBtn.disabled = false;
-            updateDownloadButtonState();
-        }
-
-        // Toggle sprite selection
-        function toggleSpriteSelection(index, isSelected) {
-            if (isSelected) {
-                appState.selectedSprites.add(index);
-            } else {
-                appState.selectedSprites.delete(index);
-            }
-            
-            // Update UI
-            const spriteCard = document.querySelectorAll('.sprite-card')[index];
-            if (spriteCard) {
-                spriteCard.classList.toggle('selected', isSelected);
-            }
-            
-            updateDownloadButtonState();
-        }
-
-        // Select all sprites
-        function selectAllSprites() {
-            appState.selectedSprites = new Set([...Array(appState.extractedSprites.length).keys()]);
-            displayExtractedSprites();
-            updateStatus("All sprites selected.");
-        }
-
-        // Deselect all sprites
-        function deselectAllSprites() {
-            appState.selectedSprites.clear();
-            displayExtractedSprites();
-            updateStatus("All sprites deselected.");
-        }
-
-        // Update download button state
-        function updateDownloadButtonState() {
-            downloadSelectedBtn.disabled = appState.selectedSprites.size === 0;
-        }
-
-        // Preview a sprite
-        function previewSprite(index) {
-            const sprite = appState.extractedSprites[index];
-            if (!sprite) return;
-            
-            spritePreviewImage.src = sprite.data;
-            spritePreviewImage.classList.remove('d-none');
-            spritePreviewPlaceholder.classList.add('d-none');
-            spriteInfo.classList.remove('d-none');
-            
-            spriteName.textContent = `${sprite.name}.png`;
-            spriteDimensions.textContent = `${sprite.width} × ${sprite.height} pixels`;
-            spriteDownloadLink.href = sprite.data;
-            spriteDownloadLink.download = `${sprite.name}.png`;
-            
-            appState.currentPreviewSprite = sprite;
-            clearPreviewBtn.disabled = false;
-        }
-
-        // Clear sprite preview
-        function clearSpritePreview() {
-            spritePreviewImage.classList.add('d-none');
-            spritePreviewPlaceholder.classList.remove('d-none');
-            spriteInfo.classList.add('d-none');
-            appState.currentPreviewSprite = null;
-            clearPreviewBtn.disabled = true;
-        }
-
-        // Clear all sprites
-        function clearSprites() {
-            appState.extractedSprites = [];
-            appState.selectedSprites.clear();
-            displayExtractedSprites();
-            clearSpritePreview();
-            updateStatus("Cleared all extracted sprites.");
-        }
-
-        // Download selected sprites
-        async function downloadSelectedSprites() {
-            if (appState.selectedSprites.size === 0) {
-                updateStatus("No sprites selected for download.");
-                return;
-            }
-            
-            try {
-                const selectedIndices = Array.from(appState.selectedSprites);
-                updateStatus(`Downloading ${selectedIndices.length} sprites...`);
-                
-                for (let i = 0; i < selectedIndices.length; i++) {
-                    const index = selectedIndices[i];
-                    const sprite = appState.extractedSprites[index];
-                    
-                    // Create download link and trigger download
-                    const link = document.createElement('a');
-                    link.href = sprite.data;
-                    link.download = `${sprite.name}.png`;
-                    link.style.display = 'none';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    
-                    updateStatus(`Downloaded ${i + 1}/${selectedIndices.length}: ${sprite.name}.png`);
-                    
-                    // Add small delay to avoid overwhelming the browser
-                    if (i < selectedIndices.length - 1) {
-                        await new Promise(resolve => setTimeout(resolve, 100));
-                    }
-                }
-                
-                updateStatus("All selected sprites downloaded!");
-                
-            } catch (error) {
-                updateStatus(`Error downloading files: ${error.message}`);
-                console.error(error);
-            }
-        }
-
-        // Match JSON to texture based on filename similarity
+        // Match JSON to texture
         function matchJsonToTexture(jsonFilename, textureFiles) {
             const jsonName = jsonFilename.replace('.json', '');
             
-            // Try exact match first
             for (let i = 0; i < textureFiles.length; i++) {
                 const textureName = textureFiles[i].name.split('.')[0];
                 if (textureName === jsonName) {
@@ -747,7 +789,6 @@
                 }
             }
             
-            // Try partial match
             for (let i = 0; i < textureFiles.length; i++) {
                 const textureName = textureFiles[i].name.split('.')[0];
                 if (textureName.includes(jsonName) || jsonName.includes(textureName)) {
@@ -755,7 +796,6 @@
                 }
             }
             
-            // Return first texture if no match found
             return textureFiles.length > 0 ? textureFiles[0] : null;
         }
 
@@ -766,7 +806,6 @@
                 return;
             }
             
-            // Show processing state
             processBtn.disabled = true;
             processBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
             updateStatus("Processing started...");
@@ -779,17 +818,14 @@
                 for (const jsonFile of appState.jsonFiles) {
                     updateStatus(`Processing JSON: ${jsonFile.name}`);
                     
-                    // Read JSON file
                     const jsonText = await readFileAsText(jsonFile);
                     const jsonData = JSON.parse(jsonText);
                     
-                    // Find matching texture
                     const textureFile = matchJsonToTexture(jsonFile.name, appState.textureFiles);
                     
                     if (textureFile) {
                         updateStatus(`Matched texture: ${textureFile.name}`);
                         
-                        // Extract sprites
                         const extracted = await extractSpritesFromAtlas(jsonData, textureFile, jsonFile.name);
                         totalExtracted += extracted;
                         
@@ -800,12 +836,10 @@
                 }
                 
                 if (totalExtracted > 0) {
-                    // Auto-select all extracted sprites
                     appState.selectedSprites = new Set([...Array(totalExtracted).keys()]);
-                    displayExtractedSprites();
+                    showResultsView();
                     updateStatus(`Processing complete! ${totalExtracted} sprites extracted and selected.`);
                 } else {
-                    spritesContainer.innerHTML = '<div class="text-muted text-center py-4"><i class="fas fa-exclamation-triangle fa-2x mb-2"></i><p>No sprites were extracted. Check your files and try again.</p></div>';
                     updateStatus('No sprites were extracted. Check your files and try again.');
                 }
                 
@@ -813,7 +847,6 @@
                 updateStatus(`Error during processing: ${error.message}`);
                 console.error(error);
             } finally {
-                // Restore process button
                 processBtn.disabled = false;
                 processBtn.innerHTML = '<i class="fas fa-gear"></i> Process Atlas';
             }
@@ -829,7 +862,7 @@
             });
         }
 
-        // Read file as data URL (for images)
+        // Read file as data URL
         function readFileAsDataURL(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -842,7 +875,6 @@
         // Extract sprites from atlas
         async function extractSpritesFromAtlas(jsonData, textureFile, jsonFileName) {
             try {
-                // Load texture as image
                 const textureDataURL = await readFileAsDataURL(textureFile);
                 
                 return new Promise((resolve) => {
@@ -853,14 +885,12 @@
                         
                         updateStatus(`Atlas texture size: ${atlasWidth}x${atlasHeight}`);
                         
-                        // Create canvas for image manipulation
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
                         canvas.width = atlasWidth;
                         canvas.height = atlasHeight;
                         ctx.drawImage(img, 0, 0);
                         
-                        // Get sprite data array
                         const spritesData = jsonData.DataArray || [];
                         let extractedCount = 0;
                         let processed = 0;
@@ -882,41 +912,34 @@
                             const offset = spriteData.Offset || {};
                             const originalSize = spriteData.OriginalSize || {};
                             
-                            // Get position and size from atlas
                             const x = position.x || 0;
                             const y = position.y || 0;
                             const width = size.x || 0;
                             const height = size.y || 0;
                             
-                            // Unity uses bottom-left origin, canvas uses top-left
                             const yCorrected = atlasHeight - y - height;
                             
                             if (width > 0 && height > 0) {
-                                // Ensure coordinates are within bounds
                                 const safeX = Math.max(0, Math.min(x, atlasWidth - 1));
                                 const safeY = Math.max(0, Math.min(yCorrected, atlasHeight - 1));
                                 
-                                // Ensure crop region doesn't exceed atlas bounds
                                 const cropRight = Math.min(safeX + width, atlasWidth);
                                 const cropBottom = Math.min(safeY + height, atlasHeight);
                                 
                                 const actualWidth = cropRight - safeX;
                                 const actualHeight = cropBottom - safeY;
                                 
-                                // Create sprite canvas
                                 const spriteCanvas = document.createElement('canvas');
                                 const spriteCtx = spriteCanvas.getContext('2d');
                                 spriteCanvas.width = actualWidth;
                                 spriteCanvas.height = actualHeight;
                                 
-                                // Extract sprite region
                                 spriteCtx.drawImage(
                                     canvas,
                                     safeX, safeY, actualWidth, actualHeight,
                                     0, 0, actualWidth, actualHeight
                                 );
                                 
-                                // Handle offset and original size if needed
                                 if (offset.x !== undefined && offset.y !== undefined && 
                                     originalSize.x !== undefined && originalSize.y !== undefined) {
                                     const offsetX = offset.x || 0;
@@ -925,30 +948,24 @@
                                     const origHeight = originalSize.y || height;
                                     
                                     if (origWidth > actualWidth || origHeight > actualHeight) {
-                                        // Create a canvas with the original size
                                         const paddedCanvas = document.createElement('canvas');
                                         const paddedCtx = paddedCanvas.getContext('2d');
                                         paddedCanvas.width = origWidth;
                                         paddedCanvas.height = origHeight;
                                         
-                                        // Clear with transparent background
                                         paddedCtx.clearRect(0, 0, origWidth, origHeight);
                                         
-                                        // Calculate paste position (Unity uses center-based coordinates)
                                         const pasteX = offsetX;
-                                        const pasteY = origHeight - offsetY - actualHeight; // Flip Y coordinate
+                                        const pasteY = origHeight - offsetY - actualHeight;
                                         
-                                        // Ensure paste position is within bounds
                                         const safePasteX = Math.max(0, Math.min(pasteX, origWidth - actualWidth));
                                         const safePasteY = Math.max(0, Math.min(pasteY, origHeight - actualHeight));
                                         
-                                        // Draw the extracted sprite onto the padded canvas
                                         paddedCtx.drawImage(
                                             spriteCanvas,
                                             safePasteX, safePasteY
                                         );
                                         
-                                        // Replace sprite canvas with padded version
                                         spriteCanvas.width = origWidth;
                                         spriteCanvas.height = origHeight;
                                         spriteCtx.drawImage(paddedCanvas, 0, 0);
@@ -957,7 +974,6 @@
                                     }
                                 }
                                 
-                                // Convert canvas to data URL and store
                                 const spriteDataURL = spriteCanvas.toDataURL('image/png');
                                 appState.extractedSprites.push({
                                     name: spriteName,
@@ -988,6 +1004,266 @@
             }
         }
 
+        // Results View Functions
+        function showResultsView() {
+            mainView.style.display = 'none';
+            resultsView.style.display = 'block';
+            
+            resultsSummary.textContent = `${appState.extractedSprites.length} sprite${appState.extractedSprites.length !== 1 ? 's' : ''} extracted`;
+            
+            populateSpriteList();
+            updateSelectedCount();
+            
+            window.scrollTo(0, 0);
+        }
+        
+        function showMainView() {
+            resultsView.style.display = 'none';
+            mainView.style.display = 'block';
+            
+            clearSearch();
+            
+            window.scrollTo(0, 0);
+        }
+        
+        function populateSpriteList() {
+            if (appState.extractedSprites.length === 0) {
+                spriteListContainer.innerHTML = `
+                    <div class="text-muted text-center py-4">
+                        <i class="fas fa-inbox fa-2x mb-2"></i>
+                        <p>No sprites to display</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            appState.extractedSprites.forEach((sprite, index) => {
+                const isSelected = appState.selectedSprites.has(index);
+                html += `
+                    <div class="sprite-list-item" data-index="${index}" data-name="${sprite.name.toLowerCase()}" 
+                        onclick="previewSpriteInResults(${index})">
+                        <input type="checkbox" class="form-check-input me-2" ${isSelected ? 'checked' : ''} 
+                            onclick="event.stopPropagation(); toggleSpriteSelectionInResults(${index}, this.checked)">
+                        <img src="${sprite.data}" class="sprite-list-thumbnail">
+                        <div class="sprite-list-info">
+                            <div class="sprite-list-name">${sprite.name}</div>
+                            <div class="sprite-list-meta">${sprite.width} × ${sprite.height} px</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            spriteListContainer.innerHTML = html;
+            updateSearchResultsCount();
+        }
+        
+        function previewSpriteInResults(index) {
+            const sprite = appState.extractedSprites[index];
+            if (!sprite) return;
+            
+            document.querySelectorAll('.sprite-list-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.sprite-list-item[data-index="${index}"]`).classList.add('active');
+            
+            resultsPreviewImage.src = sprite.data;
+            resultsPreviewImage.classList.remove('d-none');
+            resultsPreviewPlaceholder.classList.add('d-none');
+            resultsPreviewInfo.classList.remove('d-none');
+            zoomControls.style.display = 'flex';
+            
+            resultsSpriteName.textContent = `${sprite.name}.png`;
+            resultsSpriteDimensions.textContent = `${sprite.width} × ${sprite.height} pixels`;
+            resultsSpriteSource.textContent = sprite.source;
+            resultsSpriteDownloadLink.href = sprite.data;
+            resultsSpriteDownloadLink.download = `${sprite.name}.png`;
+            
+            // Reset zoom and pan
+            resetZoom();
+        }
+        
+        function toggleSpriteSelectionInResults(index, isSelected) {
+            if (isSelected) {
+                appState.selectedSprites.add(index);
+            } else {
+                appState.selectedSprites.delete(index);
+            }
+            
+            updateSelectedCount();
+        }
+        
+        function selectAllSpritesInResults() {
+            const visibleItems = document.querySelectorAll('.sprite-list-item:not(.hidden)');
+            visibleItems.forEach(item => {
+                const index = parseInt(item.dataset.index);
+                appState.selectedSprites.add(index);
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                if (checkbox) checkbox.checked = true;
+            });
+            
+            updateSelectedCount();
+            updateStatus(`Selected ${visibleItems.length} sprite${visibleItems.length !== 1 ? 's' : ''}.`);
+        }
+        
+        function deselectAllSpritesInResults() {
+            const visibleItems = document.querySelectorAll('.sprite-list-item:not(.hidden)');
+            visibleItems.forEach(item => {
+                const index = parseInt(item.dataset.index);
+                appState.selectedSprites.delete(index);
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                if (checkbox) checkbox.checked = false;
+            });
+            
+            updateSelectedCount();
+            updateStatus(`Deselected ${visibleItems.length} sprite${visibleItems.length !== 1 ? 's' : ''}.`);
+        }
+        
+        function updateSelectedCount() {
+            const count = appState.selectedSprites.size;
+            selectedCountSpan.textContent = count;
+            resultsDownloadSelectedBtn.disabled = count === 0;
+        }
+        
+        function filterSprites() {
+            const searchTerm = spriteSearchInput.value.toLowerCase().trim();
+            const items = document.querySelectorAll('.sprite-list-item');
+            let visibleCount = 0;
+            
+            items.forEach(item => {
+                const spriteName = item.dataset.name;
+                if (spriteName.includes(searchTerm)) {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+            
+            if (visibleCount === 0 && searchTerm !== '') {
+                noSearchResults.classList.remove('d-none');
+                spriteListContainer.classList.add('d-none');
+            } else {
+                noSearchResults.classList.add('d-none');
+                spriteListContainer.classList.remove('d-none');
+            }
+            
+            updateSearchResultsCount();
+        }
+        
+        function updateSearchResultsCount() {
+            const totalCount = appState.extractedSprites.length;
+            const visibleCount = document.querySelectorAll('.sprite-list-item:not(.hidden)').length;
+            
+            if (spriteSearchInput.value.trim() !== '') {
+                searchResultsCount.textContent = `Showing ${visibleCount} of ${totalCount} sprites`;
+            } else {
+                searchResultsCount.textContent = `${totalCount} sprite${totalCount !== 1 ? 's' : ''} total`;
+            }
+        }
+        
+        function clearSearch() {
+            spriteSearchInput.value = '';
+            filterSprites();
+        }
+
+        // Zoom and Pan Functions
+        function updateImageTransform() {
+            resultsPreviewImage.style.transform = `translate(${imagePanX}px, ${imagePanY}px) scale(${imageZoom})`;
+            zoomLevelDisplay.textContent = `${Math.round(imageZoom * 100)}%`;
+        }
+        
+        function zoomIn() {
+            imageZoom = Math.min(imageZoom + 0.25, 5);
+            updateImageTransform();
+        }
+        
+        function zoomOut() {
+            imageZoom = Math.max(imageZoom - 0.25, 0.25);
+            updateImageTransform();
+        }
+        
+        function resetZoom() {
+            imageZoom = 1;
+            imagePanX = 0;
+            imagePanY = 0;
+            updateImageTransform();
+        }
+        
+        function handleWheel(e) {
+            if (resultsPreviewImage.classList.contains('d-none')) return;
+            
+            e.preventDefault();
+            
+            const delta = e.deltaY > 0 ? -0.1 : 0.1;
+            imageZoom = Math.max(0.25, Math.min(5, imageZoom + delta));
+            updateImageTransform();
+        }
+        
+        function startDrag(e) {
+            if (resultsPreviewImage.classList.contains('d-none')) return;
+            if (imageZoom === 1) return;
+            
+            isDragging = true;
+            dragStartX = e.clientX - imagePanX;
+            dragStartY = e.clientY - imagePanY;
+            e.currentTarget.classList.add('grabbing');
+        }
+        
+        function drag(e) {
+            if (!isDragging) return;
+            
+            e.preventDefault();
+            imagePanX = e.clientX - dragStartX;
+            imagePanY = e.clientY - dragStartY;
+            updateImageTransform();
+        }
+        
+        function endDrag(e) {
+            if (isDragging) {
+                isDragging = false;
+                e.currentTarget.classList.remove('grabbing');
+            }
+        }
+
+        // Download selected sprites
+        async function downloadSelectedSprites() {
+            if (appState.selectedSprites.size === 0) {
+                updateStatus("No sprites selected for download.");
+                return;
+            }
+            
+            try {
+                const selectedIndices = Array.from(appState.selectedSprites);
+                updateStatus(`Downloading ${selectedIndices.length} sprites...`);
+                
+                for (let i = 0; i < selectedIndices.length; i++) {
+                    const index = selectedIndices[i];
+                    const sprite = appState.extractedSprites[index];
+                    
+                    const link = document.createElement('a');
+                    link.href = sprite.data;
+                    link.download = `${sprite.name}.png`;
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    updateStatus(`Downloaded ${i + 1}/${selectedIndices.length}: ${sprite.name}.png`);
+                    
+                    if (i < selectedIndices.length - 1) {
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                    }
+                }
+                
+                updateStatus("All selected sprites downloaded!");
+                
+            } catch (error) {
+                updateStatus(`Error downloading files: ${error.message}`);
+                console.error(error);
+            }
+        }
+
         // Initialize the application
         function init() {
             initEventListeners();
@@ -995,13 +1271,11 @@
             updateDropZoneVisibility();
         }
 
-        // Start the application when page loads
         window.onload = init;
 
-        // Make functions available globally for HTML onclick handlers
-        window.previewSprite = previewSprite;
-        window.clearSprites = clearSprites;
-        window.toggleSpriteSelection = toggleSpriteSelection;
+        // Make functions globally available
+        window.previewSpriteInResults = previewSpriteInResults;
+        window.toggleSpriteSelectionInResults = toggleSpriteSelectionInResults;
     </script>
 </body>
 </html>
