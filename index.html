@@ -230,8 +230,8 @@
         }
         
         .zoom-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 6px;
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid #dee2e6;
@@ -242,6 +242,7 @@
             transition: all 0.2s;
             font-weight: bold;
             color: #6c5ce7;
+            font-size: 1.2rem;
         }
         
         .zoom-btn:hover {
@@ -314,8 +315,8 @@
     <div class="container" id="main-view">
         <div class="row justify-content-center">
             <div class="col-lg-10 mb-3">
-                <a href="../Sprite-Assembly/Sprite Compiler/index.html" class="btn btn-outline-info">
-                    <i class="fas fa-box-arrow-right"></i> Go to Sprite Compiler
+                <a href="../Sprite-Assembly/Sprite Compiler/index.html" class="btn btn-outline-info mb-3">
+                    <i class="fas fa-arrow-right"></i> Go to Sprite Compiler
                 </a>
             </div>
         </div>
@@ -605,6 +606,11 @@
             previewContainer.addEventListener('mousemove', drag);
             previewContainer.addEventListener('mouseup', endDrag);
             previewContainer.addEventListener('mouseleave', endDrag);
+            
+            // Touch controls for mobile
+            previewContainer.addEventListener('touchstart', handleTouchStart, { passive: false });
+            previewContainer.addEventListener('touchmove', handleTouchMove, { passive: false });
+            previewContainer.addEventListener('touchend', handleTouchEnd);
             
             // Set up drag and drop
             setupDragAndDrop(jsonDropZone, handleJsonFilesAdded);
@@ -1079,8 +1085,6 @@
             resultsSpriteDownloadLink.href = sprite.data;
             resultsSpriteDownloadLink.download = `${sprite.name}.png`;
             
-            // Reset zoom and pan
-            resetZoom();
         }
         
         function toggleSpriteSelectionInResults(index, isSelected) {
@@ -1208,6 +1212,7 @@
             dragStartX = e.clientX - imagePanX;
             dragStartY = e.clientY - imagePanY;
             e.currentTarget.classList.add('grabbing');
+            e.preventDefault();
         }
         
         function drag(e) {
@@ -1224,6 +1229,66 @@
                 isDragging = false;
                 e.currentTarget.classList.remove('grabbing');
             }
+        }
+        
+        // Touch controls for mobile
+        let touchStartDistance = 0;
+        let touchStartZoom = 1;
+        let touches = [];
+        
+        function getTouchDistance(touch1, touch2) {
+            const dx = touch1.clientX - touch2.clientX;
+            const dy = touch1.clientY - touch2.clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+        
+        function handleTouchStart(e) {
+            if (resultsPreviewImage.classList.contains('d-none')) return;
+            
+            touches = Array.from(e.touches);
+            
+            if (touches.length === 1) {
+                // Single touch - pan
+                if (imageZoom > 1) {
+                    isDragging = true;
+                    dragStartX = touches[0].clientX - imagePanX;
+                    dragStartY = touches[0].clientY - imagePanY;
+                    e.preventDefault();
+                }
+            } else if (touches.length === 2) {
+                // Two finger pinch - zoom
+                e.preventDefault();
+                touchStartDistance = getTouchDistance(touches[0], touches[1]);
+                touchStartZoom = imageZoom;
+            }
+        }
+        
+        function handleTouchMove(e) {
+            if (resultsPreviewImage.classList.contains('d-none')) return;
+            
+            touches = Array.from(e.touches);
+            
+            if (touches.length === 1 && isDragging) {
+                // Single touch pan
+                e.preventDefault();
+                imagePanX = touches[0].clientX - dragStartX;
+                imagePanY = touches[0].clientY - dragStartY;
+                updateImageTransform();
+            } else if (touches.length === 2) {
+                // Pinch zoom
+                e.preventDefault();
+                const currentDistance = getTouchDistance(touches[0], touches[1]);
+                const scale = currentDistance / touchStartDistance;
+                imageZoom = Math.max(0.25, Math.min(5, touchStartZoom * scale));
+                updateImageTransform();
+            }
+        }
+        
+        function handleTouchEnd(e) {
+            if (touches.length <= 1) {
+                isDragging = false;
+            }
+            touches = Array.from(e.touches);
         }
 
         // Download selected sprites
